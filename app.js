@@ -2,10 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-app.get('/', (req, res) => {
-    res.json('Halaman Index')
-})
-
 // Database Connection
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://dyo:dyo123456@bumimakh1-awitx.mongodb.net/test?retryWrites=true&w=majority";
@@ -20,14 +16,18 @@ client.connect(err => {
   client.close();
 });
 
-
 // setup ejs
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// setup public folder
+app.use(express.static(path.join(__dirname, 'public')))
 
+// setup routes
+const pages = require('./routes/pages.js');
 
-
+// redirectio
+app.use('/', pages);
 
 // Server
 const port = process.env.PORT || 3000
