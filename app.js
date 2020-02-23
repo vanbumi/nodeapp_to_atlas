@@ -25,9 +25,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // setup routes
 const pages = require('./routes/pages.js');
+const adminPages = require('./routes/admin_pages.js');
 
-// redirectio
+// redirection
 app.use('/', pages);
+app.use('/admin/pages', adminPages)
 
 // Server
 const port = process.env.PORT || 3000
