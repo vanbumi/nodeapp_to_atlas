@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 app.get('/', (req, res) => {
     res.json('Halaman Index')
 })
-
 
 // Database Connection
 const MongoClient = require('mongodb').MongoClient;
@@ -21,6 +21,13 @@ MongoClient.connect(uri, function(err, client) {
    // perform actions on the collection object
    client.close();
 });
+
+
+// setup ejs
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+
 
 
 
