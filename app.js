@@ -8,18 +8,16 @@ app.get('/', (req, res) => {
 
 // Database Connection
 const MongoClient = require('mongodb').MongoClient;
-
-// replace the uri string with your connection string.
-const uri = "mongodb+srv://dyo:dyo123456@bumimakh1-awitx.mongodb.net/test?retryWrites=true&w=majority"
-
-MongoClient.connect(uri, function(err, client) {
-   if(err) {
-        console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
-   }
-   console.log('Connected... atlas');
-   const collection = client.db("test").collection("devices");
-   // perform actions on the collection object
-   client.close();
+const uri = "mongodb+srv://dyo:dyo123456@bumimakh1-awitx.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+});
+console.log('Connected to Atlas');
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
 });
 
 
